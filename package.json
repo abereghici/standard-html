@@ -1,0 +1,17 @@
+{
+  "name": "@standard-html/monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Monorepo for standard-html packages",
+  "license": "MIT",
+  "author": "Alexandru Bereghici <alexandru.brg@gmail.com>",
+  "type": "module",
+  "workspaces": [
+    "./packages/*"
+  ],
+  "scripts": {},
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "5.36.2",
+    "eslint-config-prettier": "8.5.0"
+  }
+}

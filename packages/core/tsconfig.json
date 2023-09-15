@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "declarationDir": "dist",
+    "lib": [
+      "ES2021",
+      "DOM"
+    ],
+    "types": [
+      "node"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "extends": "../../tsconfig.json",
+  "include": [
+    "**/*.ts"
+  ]
+}
