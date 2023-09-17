@@ -27,14 +27,32 @@ export interface Violation {
 
 export class ViolationParser {
   /**
-   * Parses a W3C result string and returns an array of violations.
-   * @param w3cResult - The W3C result string to parse.
+   * Returns a summary of the given violations.
+   * @param violations - An array of Violation objects.
+   * @returns A string containing a summary of the given violations.
+   */
+  summary(violations: Violation[]): string {
+    let summary = "";
+    if (violations.length > 0) {
+      summary += "Failed checks:\n";
+      violations.forEach((violation) => {
+        summary += `\t ${violation.description}\n`;
+        summary += `\t • ${violation.path}\n`;
+        summary += `\t • ${violation.snippet}\n`;
+      });
+    }
+    return summary;
+  }
+
+  /**
+   * Parses a W3C validation result and returns an array of violations.
+   * @param w3cResult - The W3C validation result to parse.
    * @returns An array of violations.
    */
   parse(w3cResult: string): Violation[] {
     const result = JSON.parse(w3cResult) as { messages: W3CResult[] };
 
-    return result.messages.map((message) => {
+    const violations = result.messages.map((message) => {
       const line = message.firstLine ?? message.lastLine ?? 0;
       const column = message.firstColumn ?? message.lastColumn ?? 0;
 
@@ -44,5 +62,7 @@ export class ViolationParser {
         snippet: message.extract.replace(/\n/g, "").trim(),
       };
     });
+
+    return violations;
   }
 }

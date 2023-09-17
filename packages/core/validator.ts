@@ -70,21 +70,29 @@ export class Validator {
   }
 
   /**
-   * Validates the HTML document and returns any violations found.
-   * @param html - The HTML document to validate.
-   * @returns An array of violations found during validation.
+   * Validates the given HTML string or HTMLElement using an external binary.
+   * @param html The HTML string or HTMLElement to validate.
+   * @returns A Promise that resolves to a tuple containing an array of Violations and a summary string.
    */
-  async validate(html: string | HTMLElement): Promise<Violation[]> {
+  async validate(html: string | HTMLElement): Promise<[Violation[], string]> {
     const output = await this.#executeBinary(html);
-    return new ViolationParser().parse(output);
+
+    const parser = new ViolationParser();
+
+    const violations = parser.parse(output);
+    const summary = parser.summary(violations);
+
+    return [violations, summary];
   }
 }
 
 /**
- * Creates a new instance of the Validator class.
- * @param platform - The platform to use for validation. Defaults to the current platform.
- * @returns A new instance of the Validator class.
+ * Validates HTML markup using the createValidator function.
+ * @param html - The HTML markup to be validated.
+ * @returns A Promise that resolves with the validation result.
  */
-export const createValidator = (platform: NodeJS.Platform = process.platform) => {
-  return new Validator(platform);
+export const validateMarkup = async (
+  html: string | HTMLElement,
+): Promise<[Violation[], string]> => {
+  return new Validator(process.platform).validate(html);
 };

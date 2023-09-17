@@ -1,6 +1,6 @@
 {
   "name": "@standard-html/core",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Check if your HTML is compliant with W3C standards",
   "license": "MIT",
   "author": "Alexandru Bereghici <alexandru.brg@gmail.com>",
@@ -14,8 +14,7 @@
   },
   "types": "./dist/validator.d.ts",
   "files": [
-    "dist/*",
-    "lib/*"
+    "dist/*"
   ],
   "scripts": {
     "build": "rollup -c",
@@ -34,6 +33,7 @@
     "eslint": "8.23.0",
     "prettier": "2.7.1",
     "rollup": "2.79.0",
+    "rollup-plugin-copy": "^3.5.0",
     "typescript": "4.8.2"
   },
   "engines": {

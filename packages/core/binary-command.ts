@@ -1,7 +1,11 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
 export interface BinaryCommandOptions {
   stdout?: boolean;
   "errors-only"?: boolean;
   "exit-zero-always"?: boolean;
+  "also-check-css"?: boolean;
   html?: boolean;
   format?: "json" | "text" | "xml" | "gnu";
 }
@@ -31,6 +35,7 @@ export class BinaryCommand {
       stdout: true,
       "errors-only": true,
       "exit-zero-always": true,
+      "also-check-css": true,
       html: true,
       format: "json",
       ...opts,
@@ -43,13 +48,16 @@ export class BinaryCommand {
    * @throws An error if the platform is not supported.
    */
   #getBinPath() {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+
     switch (this.#platform) {
       case "darwin":
-        return "./lib/darwin/bin/vnu";
+        return path.join(__dirname, "./lib/darwin/bin/vnu");
       case "win32":
-        return "./lib/win32/bin/vnu.bat";
+        return path.join(__dirname, "./lib/win32/bin/vnu.bat");
       case "linux":
-        return "./lib/linux/bin/vnu";
+        return path.join(__dirname, "./lib/linux/bin/vnu");
       default:
         throw new Error(`Unsupported platform: ${process.platform}`);
     }
