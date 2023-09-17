@@ -1,5 +1,5 @@
 {
-  "name": "@standard-html/core",
+  "name": "standard-html",
   "version": "0.0.1",
   "description": "Check if your HTML is compliant with W3C standards",
   "license": "MIT",

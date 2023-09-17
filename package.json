@@ -1,5 +1,5 @@
 {
-  "name": "@standard-html/monorepo",
+  "name": "standard-html-monorepo",
   "version": "0.0.0",
   "private": true,
   "description": "Monorepo for standard-html packages",

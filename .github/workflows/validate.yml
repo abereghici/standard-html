@@ -25,4 +25,4 @@ jobs:
         run: npm ci
 
       - name: Validate
-        run: npm run --workspace=@standard-html/core prepublishOnly
+        run: npm run --workspace=standard-html prepublishOnly
