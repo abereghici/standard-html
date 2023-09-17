@@ -1,6 +1,6 @@
 {
   "name": "standard-html",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Check if your HTML is compliant with W3C standards",
   "license": "MIT",
   "author": "Alexandru Bereghici <alexandru.brg@gmail.com>",
