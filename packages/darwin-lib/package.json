@@ -1,0 +1,17 @@
+{
+  "name": "standard-html-darwin-lib",
+  "version": "0.0.1",
+  "description": "Check if your HTML is compliant with W3C standards",
+  "license": "MIT",
+  "author": "Alexandru Bereghici <alexandru.brg@gmail.com>",
+  "os": [
+    "darwin"
+  ],
+  "arch": "any",
+  "main": "bin/vnu",
+  "files": [
+    "bin",
+    "conf",
+    "lib"
+  ]
+}

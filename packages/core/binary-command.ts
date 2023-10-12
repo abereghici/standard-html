@@ -1,5 +1,29 @@
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import fs from "node:fs";
+import { createRequire } from "node:module";
+
+/**
+ * Get's the file path to a module folder.
+ * @param {string} moduleEntry
+ * @param {string} fromFile
+ */
+const getModuleDir = (moduleEntry: string) => {
+  const packageName = moduleEntry.includes("/")
+    ? moduleEntry.startsWith("@")
+      ? moduleEntry.split("/").slice(0, 2).join("/")
+      : moduleEntry.split("/")[0]
+    : moduleEntry;
+
+  const require = createRequire(import.meta.url);
+  const lookupPaths = require.resolve.paths(moduleEntry)?.map((p) => path.join(p, packageName));
+  const resolvePath = lookupPaths?.find((p) => fs.existsSync(p));
+
+  if (!resolvePath) {
+    throw new Error("Failed to find the lib");
+  }
+
+  return resolvePath;
+};
 
 export interface BinaryCommandOptions {
   stdout?: boolean;
@@ -47,17 +71,14 @@ export class BinaryCommand {
    * @returns The path to the v.Nu binary file.
    * @throws An error if the platform is not supported.
    */
-  #getBinPath() {
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
-
+  #getBinPath(): string {
     switch (this.#platform) {
       case "darwin":
-        return path.join(__dirname, "./lib/darwin/bin/vnu");
+        return `${getModuleDir("standard-html-darwin-lib")}/bin/vnu`;
       case "win32":
-        return path.join(__dirname, "./lib/win32/bin/vnu.bat");
+        return `${getModuleDir("standard-html-win-lib")}/bin/vnu.bat`;
       case "linux":
-        return path.join(__dirname, "./lib/linux/bin/vnu");
+        return `${getModuleDir("standard-html-linux-lib")}/bin/vnu`;
       default:
         throw new Error(`Unsupported platform: ${process.platform}`);
     }

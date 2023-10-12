@@ -1,7 +1,6 @@
 import nodeResolve from "@rollup/plugin-node-resolve";
 import { babel } from "@rollup/plugin-babel";
 import terser from "@rollup/plugin-terser";
-import copy from "rollup-plugin-copy";
 
 export default {
   input: ["validator.ts", "validator.test.ts"],
@@ -21,9 +20,6 @@ export default {
       mangle: {
         keep_classnames: true,
       },
-    }),
-    copy({
-      targets: [{ src: "lib", dest: "dist" }],
     }),
   ],
   output: {
